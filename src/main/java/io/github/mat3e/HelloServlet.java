@@ -15,10 +15,22 @@ import java.util.Optional;
 public class HelloServlet extends HttpServlet {
     private static final String NAME_PARM = "name";
     private final Logger logger = LoggerFactory.getLogger(HelloServlet.class);
+
+    private HelloService service;
+
+//    servlet container needs it
+    @SuppressWarnings("unused")
+    public HelloServlet(){
+        this(new HelloService());
+    }
+
+    HelloServlet(HelloService service) {
+        this.service = service;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Got request with parameters " + req.getParameterMap());
-        var name = Optional.ofNullable(req.getParameter(NAME_PARM)).orElse("world");
-        resp.getWriter().write("Hello " + name);
+        resp.getWriter().write(service.prepareGreeting(req.getParameter(NAME_PARM)));
     }
 }
