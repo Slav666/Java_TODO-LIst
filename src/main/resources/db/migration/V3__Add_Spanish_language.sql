@@ -1,0 +1,1 @@
+insert into languages (welcomeMSG, code) values ('Hola', 'es');
