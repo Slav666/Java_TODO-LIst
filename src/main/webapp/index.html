@@ -19,18 +19,37 @@
 <h3 style="width: 40%; margin: 0 auto">Please type your name and choose your favourite language: </h3>
 <form id="welcome" class="pure-form" style="width: 40%; margin: 0 auto">
 
-        <input type="text" name="name" class="pure-input-rounded" placeholder="name">
+    <input type="text" name="name" class="pure-input-rounded" placeholder="name">
 
     <label class="pure-radio">
-        <input  type="radio" name="lang" value="option1">
+        <input  type="radio" name="lang" value="1">
         🇬🇧
     </label>
 
     <label class="pure-radio">
-        <input  type="radio" name="lang" value="option2">
+        <input  type="radio" name="lang" value="2">
         🇵🇱
     </label>
     <button id="btn" class="button-secondary pure-button">Submit</button>
 </form>
+<div id="wel" style="width: 40%; margin: 0 auto"></div>
+
+<script>
+    const div = document.getElementById('wel');
+    const form = document.getElementById('welcome');
+    document.getElementById('btn').addEventListener('click', (event) => {
+    event.preventDefault();
+    const formObj = {
+    name: form.elements.name.value,
+    lang: form.elements.lang.value
+    };
+    fetch('http://localhost:8080/api?' + new URLSearchParams(formObj))
+    .then(response => response.text())
+    .then((text) => {
+        div.innerHTML =`<h1>${text}</h1>`;
+    });
+});
+
+</script>
 </body>
 </html>
