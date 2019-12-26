@@ -3,8 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>ToDo List</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+
+    <style>
+        .button-secondary {
+            background: rgb(66, 184, 221);
+            color: white;
+            border-radius: 4px;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
 </head>
 <body>
-<h1>Hello from index</h1>
+<h3 style="width: 40%; margin: 0 auto">Please type your name and choose your favourite language: </h3>
+<form id="welcome" class="pure-form" style="width: 40%; margin: 0 auto">
+
+        <input type="text" name="name" class="pure-input-rounded" placeholder="name">
+
+    <label class="pure-radio">
+        <input  type="radio" name="lang" value="option1">
+        🇬🇧
+    </label>
+
+    <label class="pure-radio">
+        <input  type="radio" name="lang" value="option2">
+        🇵🇱
+    </label>
+    <button id="btn" class="button-secondary pure-button">Submit</button>
+</form>
 </body>
 </html>
