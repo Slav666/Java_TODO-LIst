@@ -22,7 +22,7 @@ import javax.persistence.Table;
          this.welcomeMsg = welcomeMsg;
          this.code = code;
      }
-
+//    unused
      Lang(){
 
      }

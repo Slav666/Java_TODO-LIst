@@ -27,21 +27,21 @@
 <div id="wel" style="width: 40%; margin: 0 auto"></div>
 
 <script>
-    const API_URL = 'http://localhost:8080/api'
+    const API_URL = 'http://localhost:8080/api';
     const CODE_TO_EMOJI = {
-        'pl': '🇵🇱',
         'en': '🇬🇧',
+        'pl': '🇵🇱',
         'es': '🇪🇸'
     };
     fetch(`${API_URL}/langs`)
     .then(response => response.json())
-    .then((ArrLangs => {
-        const checkboxes = ArrLangs.map(l => `
+    .then((langArr) => {
+        const checkboxes = langArr.map(l => `
         <label class="pure-radio">
-            <input  type="radio" name="lang" value={l.id}>
+            <input type="radio" name="lang" value=${l.id}>
             ${CODE_TO_EMOJI[l.code]}
-    </label>`
-        ).join('\n');
+            </label>
+            `).join('\n');
         document.getElementById('langs').innerHTML = checkboxes;
     });
     
