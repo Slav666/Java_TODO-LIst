@@ -32,6 +32,29 @@
 <script>
     (function () {
     const API_URL = 'http://localhost:8080/api';
+    const TODO_API_URL = `${API_URL}/todos`;
+    const todoText =document.getElementById('todoText');
+
+    fetch(TODO_API_URL)
+    .then(processOkResponse)
+    .then(todos => todos.forEach(createNewTodo));
+
+    document.getElementById('addTodo').addEventListener('click', (event) => {
+        event.preventDefault();
+        fetch(TODO_API_URL, {
+            method: 'POST',
+            body: JSON.stringify({text: todoText.value})
+        })
+        .then(processOkResponse)
+        .then(createNewTodo)
+        .then(() => todoText.value='')
+        .catch(console.warn);
+    });
+
+
+    function createNewTodo(){
+        
+    }
 
     function initWelcomeForm(){
         const CODE_TO_EMOJI = {
