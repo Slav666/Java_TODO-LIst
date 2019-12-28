@@ -30,39 +30,56 @@
 
 
 <script>
+    (function () {
     const API_URL = 'http://localhost:8080/api';
-    const CODE_TO_EMOJI = {
-        'en': '🇬🇧',
-        'pl': '🇵🇱',
-        'es': '🇪🇸'
-    };
-    fetch(`${API_URL}/langs`)
-    .then(response => response.json())
-    .then((langArr) => {
-        const checkboxes = langArr.map(l => `
-        <label class="pure-radio">
-            <input type="radio" name="lang" value=${l.id}>
-            ${CODE_TO_EMOJI[l.code]}
-            </label>
-            `).join('\n');
-        document.getElementById('langs').innerHTML = checkboxes;
-    });
-    
-    const div = document.getElementById('wel');
-    const form = document.getElementById('welcome');
-    document.getElementById('btn').addEventListener('click', (event) => {
-    event.preventDefault();
-    const formObj = {
-    name: form.elements.name.value,
-    lang: form.elements.lang.value
-    };
-    fetch(`${API_URL}?${new URLSearchParams(formObj)}`)
-    .then(response => response.text())
-    .then((text) => {
-        div.innerHTML =`<h1>${text}</h1>`;
-    });
-});
 
+    function initWelcomeForm(){
+        const CODE_TO_EMOJI = {
+            'en': '🇬🇧',
+            'pl': '🇵🇱',
+            'es': '🇪🇸'
+        };
+    fetch(`${API_URL}/langs`)
+        .then(processOkResponse)
+        .then((langArr) => {
+                document.getElementById('langs').innerHTML = langArr.map(lang => `
+                <label class="pure-radio">
+                <input type="radio" name="lang" value=${l.id}>
+                ${CODE_TO_EMOJI[l.code]}
+                </label>
+                `).join('\n');
+                initWelcomeFormClick();
+        
+        });
+    }
+    function initWelcomeFormClick() {
+        const form = document.getElementById('welcomeForm');
+
+        document.getElementById('btn').addEventListener('click', (event) => {
+            event.preventDefault();
+
+            const formObj = {
+                name: welcomeForm.elements.name.value,
+                lang: welcomeForm.elements.lang.value
+            };
+            fetch(`${API_URL}?${new URLSearchParams(formObj)}`)
+                .then(response => response.text())
+                .then((text) => {
+                    document.getElementById('welcome').innerHTML =`
+                    <h1>${text}</h1>`;
+                    welcomeForm.remove();
+                    document.getElementById('todoForm').style.display = 'block';
+                });
+        });
+    } 
+
+    function processOkResponse(response = {}) {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(`Status not 200 (${response.status})`);
+    }
+})
 </script>
 </body>
 </html>
