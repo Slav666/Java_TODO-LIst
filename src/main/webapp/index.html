@@ -5,26 +5,29 @@
     <title>ToDo List</title>
     <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
 
-    <style>
-        .button-secondary {
-            background: rgb(66, 184, 221);
-            color: white;
-            border-radius: 4px;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-        }
-
-    </style>
 </head>
 <body>
-<h3 style="width: 40%; margin: 0 auto">Please type your name and choose your favourite language: </h3>
-<form id="welcome" class="pure-form" style="width: 40%; margin: 0 auto">
+<main style="width: 40%; margin: 0 auto">
+        <div id="welcome" style="text-align: center">
+            <h1>Introduce yourself</h1>
+        </div>
+    <form id="welcomeForm" class="pure-form pure-g pure-form-aligned">
+        <input class="pure-input-rounded pure-u-1" name="name" placeholder="name">
+        <fieldset id="langs" class="pure-u-1 pure-control-group">Loading...</fieldset>
+        <button id="btn" class="pure-button pure-button-primary pure-u-1">Submit</button>
+    </form>
+    <form id="todoForm" class="pure-form" style="display: none; text-align: center">
+        <fieldset>
+            <input id="todoText" class="pure-input-rounded pure-input-2-3" placeholder="new TODO">
+            <button id="addTodo" class="pure-button pure-button-primary">+</button>
+        </fieldset>
+        <fieldset id="allTodos"></fieldset>
+    </form>
+</main>
 
-    <input type="text" name="name" class="pure-input-rounded" placeholder="name">
-    <fieldset id="langs"></fieldset>
-    
-    <button id="btn" class="button-secondary pure-button">Submit</button>
-</form>
-<div id="wel" style="width: 40%; margin: 0 auto"></div>
+
+
+
 
 <script>
     const API_URL = 'http://localhost:8080/api';
