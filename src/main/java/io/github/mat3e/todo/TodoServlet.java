@@ -50,4 +50,12 @@ public class TodoServlet extends HttpServlet {
         }
 
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var newTodo = mapper.readValue(req.getInputStream(), Todo.class);
+        resp.setContentType("application/json;charset=UFT-8");
+        mapper.writeValue(resp.getOutputStream(), repository.addTodo(newTodo));
+
+    }
 }
